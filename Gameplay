@@ -1,14 +1,3 @@
-def on_on_overlap(sprite, otherSprite):
-    global Enemy_bullet_speed
-    power_up_1.destroy()
-    Enemy_bullet_speed += 1
-sprites.on_overlap(SpriteKind.enemy, SpriteKind.food, on_on_overlap)
-
-def on_on_overlap2(sprite, otherSprite):
-    global you_bullet_speed
-    power_up_1.destroy()
-    you_bullet_speed += 1
-sprites.on_overlap(SpriteKind.player, SpriteKind.food, on_on_overlap2)
 
 Enemy_destroyers_bullet: Sprite = None
 Your_bullet: Sprite = None
@@ -61,26 +50,6 @@ Enemy_warrior = sprites.create(img("""
     """),
     SpriteKind.enemy)
 tiles.place_on_random_tile(Enemy_warrior, sprites.dungeon.collectible_insignia)
-power_up_1 = sprites.create(img("""
-        . . . . . . . f f f f . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . f f f . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . 5 5 5 5 5 5 5 5 5 5 9 . 
-            . . . . 5 5 5 5 5 5 5 5 5 5 9 . 
-            . . . . 5 5 5 5 5 5 5 5 5 5 9 . 
-            . . . . . . . . . . . . . . . . 
-            . . . . f f f . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . f f f f . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . f f f f f . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . .
-    """),
-    SpriteKind.food)
-tiles.place_on_random_tile(power_up_1, sprites.castle.tile_path5)
 
 def on_update_interval():
     if Enemy_warrior.tile_kind_at(TileDirection.LEFT, sprites.dungeon.purple_outer_west0):
@@ -201,57 +170,3 @@ def on_forever2():
         game.over(True, effects.hearts)
         music.power_up.play()
 forever(on_forever2)
-
-def on_update_interval4():
-    global Your_bullet
-    if you_bullet_speed == 1:
-        Your_bullet = sprites.create_projectile_from_sprite(img("""
-                . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            9 9 9 9 9 9 1 1 9 . . . . . . . 
-                            9 9 9 9 9 9 1 1 9 . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . .
-            """),
-            You,
-            100,
-            0)
-        music.pew_pew.play()
-game.on_update_interval(randint(500, 750), on_update_interval4)
-
-def on_update_interval5():
-    global Enemy_destroyers_bullet
-    if Enemy_bullet_speed == 1:
-        Enemy_destroyers_bullet = sprites.create_projectile_from_sprite(img("""
-                . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . 2 d 2 2 2 2 2 . 
-                            . . . . . . . . 2 d 2 2 2 2 2 . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . . 
-                            . . . . . . . . . . . . . . . .
-            """),
-            Enemy_warrior,
-            -100,
-            0)
-        music.pew_pew.play()
-game.on_update_interval(randint(500, 750), on_update_interval5)
